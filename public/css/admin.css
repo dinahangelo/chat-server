@@ -1,0 +1,294 @@
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    font-family: Arial;
+    display: flex;
+    height: 100vh;
+    height: 100dvh;
+    background: #0b141a;
+    color: white;
+}
+
+/* sidebar */
+#clients {
+    width: 30%;
+    background: #111b21;
+    overflow-y: auto;
+}
+
+.client {
+    padding: 15px;
+    border-bottom: 1px solid #222;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+}
+
+.client-name{
+    font-weight:bold;
+    color:white;
+}
+
+.client.active {
+    background: #0CFFFF20;
+}
+
+.client:hover {
+    background: #202c33;
+}
+
+/* chat */
+.chat-container {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 15px;
+    background:#202c33;
+    border-bottom:1px solid #333;
+    min-height:60px;
+    box-sizing:border-box;
+}
+
+/* messages */
+#chat {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* bubble */
+.msg {
+    padding: 10px 14px;
+    margin: 5px 0;
+    border-radius: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+}
+
+#msg {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+
+    resize: none;
+    overflow-y: hidden;   /* 🔥 pas de scroll au début */
+    
+    min-height: 40px;
+    max-height: 150px;    /* 🔥 limite (tu peux changer) */
+
+    line-height: 1.4;
+    font-family: Arial;
+}
+
+/* admin */
+.admin {
+    background: #0CFFFF;
+    color: black;
+    align-self: flex-end;
+}
+
+/* client */
+.client-msg {
+    background: #202c33;
+    align-self: flex-start;
+}
+
+/* input */
+.input-box {
+    display: flex;
+    align-items: flex-end; /* 🔥 important */
+    padding: 10px;
+    background: #202c33;
+}
+
+.input-box input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+}
+
+.input-box button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    border-radius: 50%;
+    border: none;
+    background: #0CFFFF;
+    color: black;
+    cursor: pointer;
+
+    height: 45px;      /* 🔥 taille fixe */
+    width: 45px;
+    flex-shrink: 0;    /* 🔥 ne bouge pas */
+}
+
+.badge {
+    float: right;
+    background: rgb(45, 165, 34);
+    color: black;
+    border-radius: 50%;
+    font-size: 12px;
+    padding: 4px 8px;
+    margin-left: 10px;
+}
+
+.client.active {
+    background: #2a3942;
+}
+
+.client.offline {
+    background: #2a3942;
+    opacity: 0.5;
+    color: gray;
+}
+
+.client.online {
+    background: #0CFFFF20;
+    opacity: 1;
+    color: white;
+    border-left: 4px solid #00ff88;
+}
+
+/* ========================= */
+/* PAR DÉFAUT (Desktop) */
+/* ========================= */
+#menuBtn{
+    display:none;
+    background:#0CFFFF;
+    color:black;
+    border:none;
+    width:40px;
+    height:40px;
+    border-radius:8px;
+    font-size:22px;
+    cursor:pointer;
+    flex-shrink:0;
+    padding:0;
+}
+
+#backBtn{
+    border: transparent;
+    background: none;
+    color: white;
+}
+
+/* ========================= */
+/* 💻 DESKTOP > 1024px */
+/* ========================= */
+@media (min-width:1025px){
+    #clients{
+        width:30%;
+        position:relative;
+        left:0;
+        height:100vh;
+    }
+
+    .chat-container{
+        width:70%;
+    }
+}
+
+/* ========================= */
+/* 📱 TABLETTE <= 1024px */
+/* ========================= */
+@media (max-width:1024px){
+
+    #menuBtn{
+        display:block;
+    }
+
+    #clients{
+        height: 100vh;
+        position:fixed;
+        top: 0;
+        left:-320px;
+        width:300px;
+        z-index:1500;
+        transition:left 0.3s ease;
+    }
+
+    #clients.open{
+        left:0;
+    }
+
+    body.menu-open .chat-container{
+        width: calc(100% - 300px);
+        margin-left: 300px;
+    }
+
+    body.menu-open{
+        overflow:hidden;
+    }
+
+    .chat-container{
+        width:100%;
+        margin-left: 0;
+        transition: all 0.3s ease;
+    }
+
+    .chat-header{
+        padding:12px 15px;
+    }
+}
+
+/* ========================= */
+/* 📱 MOBILE <= 768px */
+/* ========================= */
+@media (max-width:768px){
+
+    #clients{
+        width:100%;
+        left:-100%;
+    }
+
+    #clients.open{
+        left:0;
+    }
+
+    .msg{
+        max-width:85%;
+        font-size:14px;
+    }
+
+    .chat-header{
+        font-size:15px;
+    }
+
+    #msg{
+        font-size:14px;
+    }
+
+    body.show-clients #clients{
+        left:0;
+        width:100%;
+        transition: all 0.3s ease;
+    }
+
+    body.show-clients .chat-container{
+        display:none;
+    }
+
+    body.show-chat #clients{
+        display:none;
+    }
+
+    body.show-chat .chat-container{
+        display:flex;
+        width:100%;
+    }
+}
